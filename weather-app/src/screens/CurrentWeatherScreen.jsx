@@ -1,14 +1,21 @@
 import WeatherDataDisplay from "../components/WeatherDataDisplay"
 import Header from "../components/Header";
 import CitySelector from "../components/CitySelector";
+import {useState} from 'react';
 
 const CurrentWeatherScreen = () => {
-    return (
-        <div>
-            <Header title="Helsinki"></Header>
+    const [city, setCity] = useState("Helsinki")
+
+    const cityUpdated= ( newCity ) =>{
+        console.log("City vaihdettu ", newCity)
+        setCity( newCity )
+    }
+    return ( 
+        <>  
+            <Header title={city}></Header>
             <WeatherDataDisplay description="Sunny" temperature ={14} windSpeed={4.5}></WeatherDataDisplay>
-            <CitySelector></CitySelector>
-        </div>
+            <CitySelector onChange={cityUpdated}></CitySelector>     
+        </> 
     )
 }
 
