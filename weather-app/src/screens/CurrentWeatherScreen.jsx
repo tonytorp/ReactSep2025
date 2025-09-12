@@ -56,7 +56,7 @@ const CurrentWeatherScreen = () => {
         )
     }
     return ( 
-        <>  
+        <div>  
             <Header title={city}></Header>
             <WeatherDataDisplay 
                 description={weatherData.description} 
@@ -64,7 +64,7 @@ const CurrentWeatherScreen = () => {
                 windSpeed={weatherData.windSpeed}>
             </WeatherDataDisplay>         
             <CitySelector onChange={setCity}></CitySelector> 
-        </> 
+        </div> 
     )
 }
 
