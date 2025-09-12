@@ -1,17 +1,18 @@
 import WeatherDataDisplay from "../components/WeatherDataDisplay"
 import Header from "../components/Header";
-import CitySelector from "../components/CitySelector";
 import {useState, useEffect} from 'react';
+import useSelectedCityStore from "../useSelectedCityStore";
 
 
 const CurrentWeatherScreen = () => {
-    const [city, setCity] = useState("Helsinki");
+    const city = useSelectedCityStore((s)=>s.city);
     const [fetchingData, setFetchingData] = useState(false)
     const [weatherData, setWeatherData] = useState({
        description: "Sunny",
        temperature: 14,
        windSpeed: 3.4 
     });
+ 
 
     // [] sisään laitetaan listana riippuvuudet. Jos riippuvuus muuttuu, suoritetaan useEffect. 
     // Jos [] tyhjä, suoritetaan vain ensimmäisen renderöinnin jälkeen
@@ -63,7 +64,7 @@ const CurrentWeatherScreen = () => {
                 temperature ={weatherData.temperature} 
                 windSpeed={weatherData.windSpeed}>
             </WeatherDataDisplay>         
-            <CitySelector onChange={setCity}></CitySelector> 
+            
         </div> 
     )
 }

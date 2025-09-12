@@ -1,6 +1,7 @@
 import CitySelector from "../components/CitySelector";
 import Header from "../components/Header";
 import {useState} from "react"
+import useSelectedCityStore from "../useSelectedCityStore"  // zustand store
 
 
 // Miten luon listan/table rowt tms itemit datan pohjalta?
@@ -15,6 +16,8 @@ const FavouriteCitiesScreen = () => {
             { id: 4, cityName: "London", country: "UK"},       
         ]
     );
+
+    const setCity = useSelectedCityStore(state => state.setCity );
 
     const addNewCity = (newCityName)=>{
         // Luodaan uusi kaupunki nimeltä newCity
@@ -36,7 +39,11 @@ const FavouriteCitiesScreen = () => {
         // Poistettava jää suodattimen ulkopuolelle ja muut muodostavat uuden listan
         setFavCities( favCities.filter((city) => city.id !== id));
     }
-
+    const selectCity = (cityName) => {
+        // Päivitä kaupungin nimi zustand storeen
+        // (navigoi säätilanäkymään)
+        setCity( cityName )
+    }
     return(
         <div>
             <Header title={"FavouriteCities"}></Header>
@@ -52,7 +59,7 @@ const FavouriteCitiesScreen = () => {
                         <tr key={index}>
                           <td>{city.cityName}</td>
                           <td>
-                            <button>Select</button>
+                            <button onClick={() => selectCity(city.cityName)}>Select</button>
                             <button onClick={() => handleDelete(city.id)}>Delete</button>
                            </td> 
                         </tr>
